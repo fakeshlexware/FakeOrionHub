@@ -1,0 +1,36 @@
+local RightLegID = 101851696 -- Replace with the ID of the right leg mesh you want to use
+
+local function onCharacterAdded(character)
+    local humanoid = character:WaitForChild("Humanoid")
+    local rightLeg = character:WaitForChild("Right Leg")
+
+    humanoid.Died:Connect(function()
+        local rightLegPosition = rightLeg.Position
+
+        -- Create a new mesh at the right leg's last position
+        local newMesh = Instance.new("SpecialMesh")
+        newMesh.MeshId = "rbxassetid://" .. tostring(RightLegID)
+        newMesh.Parent = character
+        newMesh.Position = rightLegPosition
+
+        print("Right leg removed. New mesh created.")
+    end)
+end
+
+game.Players.LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+if game.Players.LocalPlayer.Character then
+    onCharacterAdded(game.Players.LocalPlayer.Character)
+end
+
+character = game:GetService("Players").LocalPlayer.Character
+local humanoid = character:WaitForChild("Humanoid")
+    local rightLeg = character:WaitForChild("Right Leg")
+
+if rightLeg then
+    local meshId = "rbxassetid://101851696"  -- Replace with your mesh's asset ID
+    local mesh = Instance.new("SpecialMesh")
+    mesh.MeshId = meshId
+    mesh.Parent = rightLeg
+else
+    warn("Right Leg part not found!")
+end
